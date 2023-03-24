@@ -23,8 +23,16 @@ BASE_FILE_NAME="mongodb-linux-x86_64-ubuntu2204-${VERSION}"
 download_url="https://fastdl.mongodb.org/linux/${BASE_FILE_NAME}.tgz"
 curl $download_url -s -o - | tar xzf - -C /tmp
 
+# Install mongodb database tools
+DATABASE_TOOLS_VERSION=100.7.0
+echo "Downloading and installing mongodb database tools version $DATABASE_TOOLS_VERSION"
+DATABASE_TOOLS_BASE_FILE_NAME="mongodb-database-tools-ubuntu2204-x86_64-${DATABASE_TOOLS_VERSION}"
+database_tools_download_url="https://fastdl.mongodb.org/tools/db/${DATABASE_TOOLS_BASE_FILE_NAME}.tgz"
+curl $database_tools_download_url -s -o - | tar xzf - -C /tmp
+
 # Move mongodb binaries into the app directory
 mv /tmp/${BASE_FILE_NAME}/* $HEROKU_DIR/mongo
+mv /tmp/${DATABASE_TOOLS_BASE_FILE_NAME}/* $HEROKU_DIR/mongo
 chmod +x $HEROKU_DIR/mongo/bin/*
 
 echo "Creating run-time environment"
