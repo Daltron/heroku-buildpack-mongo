@@ -35,7 +35,9 @@ curl $database_tools_download_url -s -o - | tar xzf - -C /tmp
 mv /tmp/${BASE_FILE_NAME}/* $HEROKU_DIR/mongo
 mv /tmp/${DATABASE_TOOLS_BASE_FILE_NAME}/* $HEROKU_DIR/mongo_database_tools
 chmod +x $HEROKU_DIR/mongo/bin/*
+chmod +x $HEROKU_DIR/mongo_database_tools/bin/*
 
 echo "Creating run-time environment"
 mkdir -p $BUILD_DIR/.profile.d
-echo "export PATH=\"\$HOME/.heroku/mongo/bin:\$PATH\"" > $BUILD_DIR/.profile.d/mongo.sh
+echo "export PATH=\"\$HOME/.heroku/mongo/bin:\$PATH\"" > $BUILD_DIR/.profile.d/mongod.sh
+echo "export PATH=\"\$HOME/.heroku/mongo_database_tools/bin:\$PATH\"" > $BUILD_DIR/.profile.d/mongodump.sh
